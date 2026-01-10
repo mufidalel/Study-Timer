@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusFlow — Ambient Study Timer</title>
+  <meta name="description" content="A minimalist ambient study timer with focus mode, study/break cycles, and performance tracking." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Background Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Particle Container -->
+  <div id="particle-container" class="particle-container"></div>
+
+  <!-- Main App -->
+  <div id="app" class="app">
+    <!-- Header -->
+    <header id="header" class="header">
+      <h1>FocusFlow</h1>
+      <p>Ambient Study Timer</p>
+    </header>
+
+    <!-- Mode Indicator -->
+    <div id="mode-indicator" class="mode-indicator hidden">
+      <div class="mode-badge study-mode">
+        <span class="mode-icon">📖</span>
+        <span class="mode-text">Study Mode</span>
+      </div>
+      <span class="cycle-info">Cycle <span id="current-cycle">1</span> / <span id="total-cycles-display">4</span></span>
+    </div>
+
+    <!-- Timer Display -->
+    <div id="timer-display" class="timer-display">
+      <span id="hours">00</span>
+      <span class="separator">:</span>
+      <span id="minutes">25</span>
+      <span class="separator">:</span>
+      <span id="seconds">00</span>
+    </div>
+
+    <!-- Timer Controls -->
+    <div class="timer-controls">
+      <button id="start-btn" class="btn btn-primary">
+        <span>▶</span> Start
+      </button>
+      <button id="pause-btn" class="btn btn-secondary hidden">
+        <span>⏸</span> Pause
+      </button>
+      <button id="reset-btn" class="btn btn-outline">
+        <span>↺</span> Reset
+      </button>
+      <button id="focus-btn" class="btn btn-ghost">
+        <span>⛶</span> Focus
+      </button>
+    </div>
+
+    <!-- Session Configuration -->
+    <div id="config-panel" class="config-panel glass">
+      <!-- Study Duration -->
+      <div class="config-section">
+        <h3 class="config-title study">Study Duration</h3>
+        <div class="time-inputs">
+          <div class="input-group">
+            <label>Hours</label>
+            <input type="text" id="study-hours" value="0" inputmode="numeric" />
+          </div>
+          <span class="input-separator">:</span>
+          <div class="input-group">
+            <label>Minutes</label>
+            <input type="text" id="study-minutes" value="25" inputmode="numeric" />
+          </div>
+          <span class="input-separator">:</span>
+          <div class="input-group">
+            <label>Seconds</label>
+            <input type="text" id="study-seconds" value="0" inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Break Duration -->
+      <div class="config-section">
+        <h3 class="config-title break">Break Duration</h3>
+        <div class="time-inputs">
+          <div class="input-group">
+            <label>Minutes</label>
+            <input type="text" id="break-minutes" value="5" inputmode="numeric" />
+          </div>
+          <span class="input-separator">:</span>
+          <div class="input-group">
+            <label>Seconds</label>
+            <input type="text" id="break-seconds" value="0" inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Cycles -->
+      <div class="config-section">
+        <h3 class="config-title">Cycles</h3>
+        <div class="time-inputs">
+          <div class="input-group">
+            <label>Count</label>
+            <input type="text" id="cycles" value="4" inputmode="numeric" />
+          </div>
+          <button id="infinite-btn" class="btn-infinite">∞ Infinite</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Focus Mode Hint -->
+    <p id="focus-hint" class="focus-hint">Press <kbd>F</kbd> for focus mode</p>
+  </div>
+
+  <!-- Summary Panel (hidden by default) -->
+  <div id="summary-panel" class="summary-panel hidden">
+    <div class="summary-card glass">
+      <div class="summary-header">
+        <span class="trophy">🏆</span>
+        <h2>Session Complete!</h2>
+        <p id="score-label">Great work!</p>
+      </div>
+      <div class="score-display">
+        <span id="score-value">85</span>
+        <span class="score-percent">%</span>
+        <p>Focus Score</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card glass">
+          <span class="stat-icon">🎯</span>
+          <p class="stat-label">Planned</p>
+          <p id="stat-planned" class="stat-value">25m 0s</p>
+        </div>
+        <div class="stat-card glass">
+          <span class="stat-icon">⏱</span>
+          <p class="stat-label">Studied</p>
+          <p id="stat-studied" class="stat-value">25m 0s</p>
+        </div>
+        <div class="stat-card glass">
+          <span class="stat-icon">☕</span>
+          <p class="stat-label">Break Time</p>
+          <p id="stat-break" class="stat-value">5m 0s</p>
+        </div>
+        <div class="stat-card glass">
+          <span class="stat-icon">↺</span>
+          <p class="stat-label">Cycles</p>
+          <p id="stat-cycles" class="stat-value">4 / 4</p>
+        </div>
+      </div>
+      <button id="new-session-btn" class="btn btn-primary btn-full">Start New Session</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
